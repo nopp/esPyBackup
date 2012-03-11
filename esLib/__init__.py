@@ -2,12 +2,13 @@
 
 import subprocess, urllib, getopt, sys
 
-class EsBackup:
+class config:
 
-        # Config
-        esServer = "localhost"
-        esPort = 9200
-        esIndicePath = "/var/lib/elasticsearch/elasticsearch/nodes/0/indices"
+	esServer = "localhost"
+	esPort = 9200
+	esIndicePath = "/var/lib/elasticsearch/elasticsearch/nodes/0/indices"
+
+class EsBackup(config):
 
 	def main(self):
 		dirBackup = ""
@@ -19,7 +20,7 @@ class EsBackup:
    			elif option == '-i':
 				indice = value
 		if (dirBackup == "" or indice == ""):
-			print "Usage:\nesPyBackup.py -d dirBackupPath -i indiceName\n"
+			print "Usage:\n esPyBackup.py -d dirBackupPath -i indiceName\n"
 		else:
 			self.backupByIndice(indice,dirBackup)
 
@@ -40,7 +41,7 @@ class EsBackup:
 		if(result == 0):
 			print "Backup success!"
 
-	def restoreByIndice(self, indiceName):
+	def restoreByIndice(self, indiceName, mappingFile):
 
 		fhMapping = open(self.mappingFile,"r")
 		params = fhMapping.read()
