@@ -11,4 +11,5 @@
 from esLib import EsBackup
 
 # Main
-EsBackup().backupByIndice("twitter")
+esBkp = EsBackup()
+esBkp.backupByIndice("twitter")
