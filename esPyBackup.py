@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+# coding: utf-8
 #
 # esPyBackup - Simple backup of elasticsearch
 # Author: Carlos Augusto Malucelli
@@ -6,14 +7,8 @@
 # https://github.com/malucelli/esPyBackup
 #
 
-# Python Modules
-import os
-import sys
-
 # esPyBackup Moduels
-sys.path.append(os.path.dirname(sys.argv[0]) + "/class/")
-from EsBackup import *
+from esLib import EsBackup
 
 # Main
 EsBackup().backupByIndice("twitter")
-
