@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import subprocess, urllib
+import subprocess, urllib, json
 
 class EsBackup:
 
@@ -26,3 +26,13 @@ class EsBackup:
 		subprocess.call("rm "+self.mappingFile,shell=True)
 		if(result == 0):
 			print "Backup success!"
+
+	def restoreByIndice(self, indiceName):
+		fhMapping = open(self.mappingFile,"r")
+		params = fhMapping.read()
+		fhMapping.close()
+		result = urllib.urlopen("http://"+self.esServer+":"+str(self.esPort)+"/"+indiceName+"/", params)
+		if(result == 0):
+			# Move indice dir to es indice path	
+			subprocess.call("cp -r "+indiceName+" "+self.esIndicePath,shell=True)
+			print "Restore success!"
