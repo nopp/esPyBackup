@@ -7,9 +7,11 @@
 # https://github.com/malucelli/esPyBackup
 #
 
+import getopt, sys
+
 # esPyBackup Moduels
 from esLib import EsBackup
 
 # Main
 esBkp = EsBackup()
-esBkp.backupByIndice("twitter")
+esBkp.main()
