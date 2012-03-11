@@ -7,8 +7,6 @@
 # https://github.com/malucelli/esPyBackup
 #
 
-import getopt, sys
-
 # esPyBackup Moduels
 from esLib import EsBackup
 
