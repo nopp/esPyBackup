@@ -64,7 +64,7 @@ class EsRestore(config):
 		if (indice == "" or mappingFile == "" or backupDir == ""):
 			print "Usage:\n esPyRestore.py -i indiceName -m mappingFile -d bakcupDir\n"
 		else:
-			self.restoreByIndice(indice,mappingFile)
+			self.restoreByIndice(indice,mappingFile,backupDir)
 
 	def restoreByIndice(self, indiceName, mappingFile, backupDir):
 
