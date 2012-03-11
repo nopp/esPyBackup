@@ -8,6 +8,10 @@ class config:
 	esPort = 9200
 	esIndicePath = "/var/lib/elasticsearch/elasticsearch/nodes/0/indices"
 
+#
+# Backup Class
+#
+
 class EsBackup(config):
 
 	def main(self):
@@ -41,7 +45,28 @@ class EsBackup(config):
 		if(result == 0):
 			print "Backup success!"
 
-	def restoreByIndice(self, indiceName, mappingFile):
+#
+# Restore Class
+#
+
+class EsRestore(config):
+
+	def main(self):
+		backupDir = ""
+		mappingFile = ""
+		indice = ""
+		optlist , args = getopt.getopt(sys.argv[1:],'d:i:')
+		for (option,value) in optlist:
+			if option == '-i':
+				indice = value
+   			elif option == '-m':
+				mappingFile = value
+		if (indice == "" or mappingFile == "" or backupDir == ""):
+			print "Usage:\n esPyRestore.py -i indiceName -m mappingFile -d bakcupDir\n"
+		else:
+			self.restoreByIndice(indice,mappingFile)
+
+	def restoreByIndice(self, indiceName, mappingFile, backupDir):
 
 		fhMapping = open(self.mappingFile,"r")
 		params = fhMapping.read()
@@ -49,5 +74,5 @@ class EsBackup(config):
 		result = urllib.urlopen("http://"+self.esServer+":"+str(self.esPort)+"/"+indiceName+"/", params)
 		if(result == 0):
 			# Move indice dir to es indice path	
-			subprocess.call("cp -r "+indiceName+" "+self.esIndicePath,shell=True)
+			subprocess.call("cp -r "+backupDir+"/"+indiceName+" "+self.esIndicePath,shell=True)
 			print "Restore success!"

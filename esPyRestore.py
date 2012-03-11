@@ -8,8 +8,8 @@
 #
 
 # esPyBackup Moduels
-from esLib import EsBackup
+from esLib import EsRestore
 
 # Main
-esRst = EsBackup()
-esRst.restoreByIndice("twitter")
+esRst = EsRestore()
+esRst.main()
