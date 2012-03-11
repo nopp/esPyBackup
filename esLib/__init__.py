@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import subprocess, urllib, json
+import subprocess, urllib
 
 class EsBackup:
 
@@ -28,6 +28,7 @@ class EsBackup:
 			print "Backup success!"
 
 	def restoreByIndice(self, indiceName):
+
 		fhMapping = open(self.mappingFile,"r")
 		params = fhMapping.read()
 		fhMapping.close()
