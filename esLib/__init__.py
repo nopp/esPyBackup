@@ -80,3 +80,5 @@ class EsRestore(config):
 				print "Restore success!"
 			except:
 				print "Copy data error"	
+		else:
+			print "Import mapping error"
