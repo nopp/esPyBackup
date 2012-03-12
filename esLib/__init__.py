@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import subprocess, urllib, getopt, sys
+import subprocess, urllib, getopt, sys, shutil
 
 class config:
 
@@ -75,6 +75,8 @@ class EsRestore(config):
 		fhMapping.close()
 		result = urllib.urlopen("http://"+self.esServer+":"+str(self.esPort)+"/"+indiceName+"/", params)
 		if(result == 0):
-			# Move indice dir to es indice path	
-			subprocess.call("cp -r "+backupDir+"/"+indiceName+" "+self.esIndicePath,shell=True)
-			print "Restore success!"
+			try:
+				shutil.copytree(backupDir+"/"+indiceName,self.esIndicePath)
+				print "Restore success!"
+			except:
+				print "Copy data error"	
