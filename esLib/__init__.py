@@ -55,12 +55,14 @@ class EsRestore(config):
 		backupDir = ""
 		mappingFile = ""
 		indice = ""
-		optlist , args = getopt.getopt(sys.argv[1:],'d:i:')
+		optlist , args = getopt.getopt(sys.argv[1:],'i:m:d:')
 		for (option,value) in optlist:
 			if option == '-i':
 				indice = value
    			elif option == '-m':
 				mappingFile = value
+   			elif option == '-d':
+				backupDir = value
 		if (indice == "" or mappingFile == "" or backupDir == ""):
 			print "Usage:\n esPyRestore.py -i indiceName -m mappingFile -d bakcupDir\n"
 		else:
@@ -68,7 +70,7 @@ class EsRestore(config):
 
 	def restoreByIndice(self, indiceName, mappingFile, backupDir):
 
-		fhMapping = open(self.mappingFile,"r")
+		fhMapping = open(mappingFile,"r")
 		params = fhMapping.read()
 		fhMapping.close()
 		result = urllib.urlopen("http://"+self.esServer+":"+str(self.esPort)+"/"+indiceName+"/", params)
