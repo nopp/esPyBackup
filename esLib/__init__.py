@@ -70,16 +70,16 @@ class EsRestore(config):
 
 	def restoreByIndice(self, indiceName, mappingFile, backupDir):
 		
-        # Move indice data and preserve owner and group
-        # Copytree not preserve mods :/
-        try:
-                shutil.move(backupDir,self.esIndicePath)
-        except:
-                print "Move indice error"
+		# Move indice data and preserve owner and group
+		# Copytree not preserve mods :/
+		try:
+			shutil.move(backupDir,self.esIndicePath)
+		except:
+			print "Move indice error"
 
-        # Import indice mapping
-        fhMapping = open(mappingFile,"r")
-        params = fhMapping.read()
-        fhMapping.close()
-        result = urllib.urlopen("http://"+self.esServer+":"+str(self.esPort)+"/"+indiceName+"/", params)
-        print "Restore success!"
+		# Import indice mapping
+		fhMapping = open(mappingFile,"r")
+		params = fhMapping.read()
+		fhMapping.close()
+		result = urllib.urlopen("http://"+self.esServer+":"+str(self.esPort)+"/"+indiceName+"/", params)
+		print "Restore success!"
