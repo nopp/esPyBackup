@@ -69,16 +69,9 @@ class EsRestore(config):
 			self.restoreByIndice(indice,mappingFile,backupDir)
 
 	def restoreByIndice(self, indiceName, mappingFile, backupDir):
-
+		
+		shutil.move(backupDir,self.esIndicePath)
 		fhMapping = open(mappingFile,"r")
 		params = fhMapping.read()
 		fhMapping.close()
 		result = urllib.urlopen("http://"+self.esServer+":"+str(self.esPort)+"/"+indiceName+"/", params)
-		if(result == 0):
-			try:
-				shutil.copytree(backupDir+"/"+indiceName,self.esIndicePath)
-				print "Restore success!"
-			except:
-				print "Copy data error"	
-		else:
-			print "Import mapping error"
