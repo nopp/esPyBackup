@@ -2,7 +2,7 @@
 # esPyBackup - Simple backup for elasticsearch
 
 # esPyBackup Moduels
-from esLib import EsBackup
+from esLib.backup import *
 
 # Main
 esBkp = EsBackup()
