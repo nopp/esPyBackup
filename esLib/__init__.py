@@ -52,12 +52,12 @@ class EsBackup():
 
 class EsRestore():
 
-    config = ConfigParser.RawConfigParser()
-    config.read('config.cfg')
+	config = ConfigParser.RawConfigParser()
+	config.read('config.cfg')
 
-    esServer = config.get('conf','server')
-    esPort = config.get('conf','port')
-    esIndicePath = config.get('conf','indicePath')
+	esServer = config.get('conf','server')
+	esPort = config.get('conf','port')
+	esIndicePath = config.get('conf','indicePath')
 
 	def main(self):
 		backupDir = ""
