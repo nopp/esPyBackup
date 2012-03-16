@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 
-import subprocess, urllib, getopt, sys, shutil
-
-class config:
-
-	esServer = "localhost"
-	esPort = 9200
-	esIndicePath = "/var/lib/elasticsearch/elasticsearch/nodes/0/indices"
+import subprocess, urllib, getopt, sys, shutil, ConfigParser
 
 #
 # Backup Class
 #
 
-class EsBackup(config):
+class EsBackup():
+
+    config = ConfigParser.RawConfigParser()
+    config.read('config.cfg')
+
+    esServer = config.get('conf','server')
+    esPort = config.get('conf','port')
+    esIndicePath = config.get('conf','indicePath')
 
 	def main(self):
 		dirBackup = ""
@@ -49,7 +50,14 @@ class EsBackup(config):
 # Restore Class
 #
 
-class EsRestore(config):
+class EsRestore():
+
+    config = ConfigParser.RawConfigParser()
+    config.read('config.cfg')
+
+    esServer = config.get('conf','server')
+    esPort = config.get('conf','port')
+    esIndicePath = config.get('conf','indicePath')
 
 	def main(self):
 		backupDir = ""
