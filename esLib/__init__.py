@@ -8,12 +8,12 @@ import subprocess, urllib, getopt, sys, shutil, ConfigParser
 
 class EsBackup():
 
-    config = ConfigParser.RawConfigParser()
-    config.read('config.cfg')
+	config = ConfigParser.RawConfigParser()
+	config.read('config.cfg')
 
-    esServer = config.get('conf','server')
-    esPort = config.get('conf','port')
-    esIndicePath = config.get('conf','indicePath')
+	esServer = config.get('conf','server')
+	esPort = config.get('conf','port')
+	esIndicePath = config.get('conf','indicePath')
 
 	def main(self):
 		dirBackup = ""
