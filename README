@@ -1,3 +1,8 @@
 esPyBackup - Simple backup for elasticsearch
-
 www.carlosmalucelli.com
+
+Backup
+ex: ./esPyBackup.py -d /backupDir/ -i twitter
+
+Restore
+ex: ./esPyRestore.py -i twitter -m tmp/backup/twitter_mapping -d twitter/
