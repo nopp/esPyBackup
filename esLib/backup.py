@@ -38,10 +38,14 @@ class EsBackup:
         fhMapping.writelines("{\"settings\":{\"number_of_shards\":5,\"number_of_replicas\":1},\"mappings\":{\n")
         fhMapping.writelines(mapping)
         fhMapping.close()
-        subprocess.call("sed -i '2,3d' "+dirBackup+"/"+mappingFile,shell=True)
-
-        # Generate .tar.gz with metadata and data
-        result = subprocess.call("cd "+esIndicePath+" && tar czfP "+dirBackup+"/backup_"+indiceName+".tar.gz "+indiceName+"/ "+dirBackup+"/"+mappingFile ,shell=True)
-        subprocess.call("rm "+dirBackup+"/"+mappingFile,shell=True)
+        result = subprocess.call("sed -i '2,3d' "+dirBackup+"/"+mappingFile,shell=True)
         if(result == 0):
-            print "Backup success!"
+            # Generate .tar.gz with metadata and data
+            result = subprocess.call("cd "+esIndicePath+" && tar czfP "+dirBackup+"/backup_"+indiceName+".tar.gz "+indiceName+"/ "+dirBackup+"/"+mappingFile ,shell=True)
+            if(result == 0):
+               subprocess.call("rm "+dirBackup+"/"+mappingFile,shell=True)
+               print "Backup success!"
+            else:
+               print "Backup failed!"
+        else:
+            print "Backup failed!"
