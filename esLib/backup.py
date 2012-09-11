@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import subprocess, urllib, getopt, sys, shutil, ConfigParser
+import subprocess, urllib, getopt, sys, shutil, ConfigParser, datetime, os
 
 config = ConfigParser.RawConfigParser()
 config.read('config.cfg')
@@ -8,6 +8,7 @@ config.read('config.cfg')
 esServer = config.get('conf','server')
 esPort = config.get('conf','port')
 esIndicePath = config.get('conf','indicePath')
+esBackupDir = config.get('conf','backupDir')
 
 #
 # Backup Class
@@ -18,18 +19,24 @@ class EsBackup:
     def main(self):
         dirBackup = ""
         indice = ""
-        optlist , args = getopt.getopt(sys.argv[1:],'d:i:')
+        optlist , args = getopt.getopt(sys.argv[1:],'i:')
         for (option,value) in optlist:
-            if option == '-d':
-                dirBackup = value
-            elif option == '-i':
+            if option == '-i':
                 indice = value
-        if (dirBackup == "" or indice == ""):
-            print "Usage:\n esPyBackup.py -d dirBackupPath -i indiceName\n"
+        if (indice == ""):
+            print "Usage:\n esPyBackup.py -i indiceName\n"
         else:
-            self.backupByIndice(indice,dirBackup)
+            self.backupByIndice(indice)
 
-    def backupByIndice(self, indiceName, dirBackup):
+    def backupByIndice(self, indiceName):
+
+        # Date
+        date = datetime.datetime.now()
+        backupDate = str(date.day)+""+str(date.month)+""+str(date.year)
+
+        # Create backup dir
+        os.makedirs(esBackupDir+"/"+backupDate)
+        dirBackup = esBackupDir+"/"+backupDate
 
         # Generate mapping from indice
         mappingFile = indiceName+"_mapping"
