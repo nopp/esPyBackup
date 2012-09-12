@@ -50,7 +50,6 @@ class EsBackup:
             # Generate .tar.gz with metadata and data
             result = subprocess.call("cd "+esIndicePath+" && tar czfP "+dirBackup+"/backup_"+indiceName+".tar.gz "+indiceName+"/ "+dirBackup+"/"+mappingFile ,shell=True)
             if(result == 0):
-               subprocess.call("rm "+esBackupDir+"/"+mappingFile,shell=True)
                print "Backup success!"
             else:
                print "Backup failed!"
